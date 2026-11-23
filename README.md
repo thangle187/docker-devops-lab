@@ -1,4 +1,4 @@
-# Docker DevOps Lab
+# Docker DevOps Lab - GitHub Version
 
 ## About
 This repository documents my journey learning Linux, Git, Docker and DevOps.
