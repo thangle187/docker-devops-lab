@@ -16,3 +16,4 @@ def visits():
     global visit_count
     visit_count += 1
     return {"visits": visit_count}
+
