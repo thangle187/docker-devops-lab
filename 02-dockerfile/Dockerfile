@@ -1,11 +1,24 @@
-FROM python:3.12-alpine
+# --- Stage 1: Builder ---
+FROM python:3.12-alpine AS builder
 
 WORKDIR /app
+RUN apk add --no-cache build-base
+
+RUN python -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
 
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . .
+# --- Stage 2: Runtime ---
+FROM python:3.12-alpine AS runtime
+
+WORKDIR /app
+
+COPY --from=builder /opt/venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+COPY app.py .
 
 EXPOSE 8000
 
